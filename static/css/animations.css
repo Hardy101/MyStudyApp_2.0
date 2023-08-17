@@ -1,0 +1,23 @@
+.slideup {
+  /* animation-name: slideUp;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1; */
+  animation: slideUp 1.4s ease 1;
+}
+.slideup_1 {
+  animation: slideUp 1.4s ease 0.2s 1;
+}
+.slideup_2 {
+  animation: slideUp 1.4s ease 0.3s 1;
+}
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+    <!-- Animations -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}" />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <title>MyStudy</title>
+  </head>
+  <body class="bg-[#35155D]">
+
+    <!-- Add Book Div -->
+    <div
+      class="cover-div hidden bg-[#000000a6] absolute w-full h-screen grid place-items-center z-20"
+    >
+      <div
+        class="overlay absolute w-full h-full z-0 cursor-pointer"
+      ></div>
+
+      <form action="/" class="divs add-book-div hidden bg-white rounded-md py-2 px-5 w-4/5 lg:w-2/5 mx-auto z-10" method="POST">
+        <label class="font-bold text-2xl">Book Details</label>
+        <div class="form-control my-5 w-full">
+          <input
+            type="text"
+            placeholder="Enter Book Title"
+            name="title"
+            class="w-full outline-none border-b border-[#35155D] py-2"
+          />
+        </div>
+        <div class="form-control my-5 w-full">
+          <input
+            type="text"
+            placeholder="Enter Author"
+            name="author"
+            class="w-full outline-none border-b border-[#35155D] py-2"
+          />
+        </div>
+        <div class="form-control my-5 w-full flex justify-between">
+          <button
+            type="submit"
+            name="submit"
+            class="add bg-[#35155D] text-white py-2 px-5 rounded-sm"
+          >
+            Add Book
+          </button>
+          <button
+            type="button"
+            class="cancel bg-[#EA1179] text-white py-2 px-5 rounded-sm"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+      <form action="{{ url_for('register') }}" class="divs register-div hidden bg-white rounded-md py-2 px-5 w-4/5 lg:w-2/5 mx-auto z-10" method="POST">
+        <label class="font-bold text-2xl">Create Account</label>
+        <div class="form-control my-5 w-full">
+          <input
+            type="text"
+            placeholder="John Doe"
+            name="user_name"
+            class="w-full outline-none border-b border-[#35155D] py-2"
+          />
+        </div>
+        <div class="form-control my-5 w-full">
+          <input
+            type="email"
+            placeholder="johndoe@mail.com"
+            name="user_email"
+            class="w-full outline-none border-b border-[#35155D] py-2"
+          />
+        </div>
+        <div class="form-control my-5 w-full">
+          <input
+            type="password"
+            placeholder="password"
+            name="user_password"
+            class="w-full outline-none border-b border-[#35155D] py-2"
+          />
+        </div>
+        <div class="form-control my-5 w-full flex justify-between">
+          <button
+            type="submit"
+            name="submit"
+            class="add bg-[#35155D] text-white py-2 px-5 rounded-sm"
+          >
+            <i class="lar la-circle"></i>
+          </button>
+          <button
+            type="button"
+            class="cancel bg-[#EA1179] text-white py-2 px-5 rounded-sm"
+          >
+            <i class="las la-times"></i>
+          </button>
+        </div>
+      </form>
+      <form action="{{ url_for('login') }}" class="divs signin-div hidden bg-white rounded-md py-2 px-5 w-4/5 lg:w-2/5 mx-auto z-10" method="POST">
+        <label class="font-bold text-2xl">Sign In</label>
+        <div class="form-control my-5 w-full">
+          <input
+            type="email"
+            placeholder="johndoe@mail.com"
+            name="user_email"
+            class="w-full outline-none border-b border-[#35155D] py-2"
+          />
+        </div>
+        <div class="form-control my-5 w-full">
+          <input
+            type="password"
+            placeholder="password"
+            name="user_password"
+            class="w-full outline-none border-b border-[#35155D] py-2"
+          />
+        </div>
+        <div class="form-control my-5 w-full flex justify-between">
+          <button
+            type="submit"
+            name="submit"
+            class="add bg-[#35155D] text-white py-2 px-5 rounded-sm"
+          >
+            <i class="lar la-circle"></i>
+          </button>
+          <button
+            type="button"
+            class="cancel bg-[#EA1179] text-white py-2 px-5 rounded-sm"
+          >
+            <i class="las la-times"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- Main Section -->
+    <section>
+      <div class="py-5 px-10">
+        <div class="flex justify-between text-white mb-5">
+            {% if current_user.is_authenticated %}
+              <div class="my-auto">
+                  <h2 class="text-2xl">Welcome, {{ current_user.user_name.title() }}</h2>
+              </div>
+              {% endif %}
+          <div class=" my-auto">
+              {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}" class="inline-block text-xl italic underline cursor-pointer">Sign Out</a>
+                {% else %}
+                    <a class="add_el register inline-block text-xl italic underline mr-5 cursor-pointer">SignUp</a>
+                    <a  class="add_el signin inline-block text-xl italic underline cursor-pointer">SignIn</a>
+              {% endif %}
+
+            </div>
+        </div>
+
+        <h1 class="text-white text-3xl">
+          Books in <a href="#" class="underline italic">myStudy</a>
+        </h1>
+        {% if current_user.is_authenticated %}
+        <div class="mt-10 flex flex-wrap gap-10 text-white">
+          <div
+            class="add_el add-book bg-transparent py-2 px-5 rounded-md border border-[#512B81] border-dashed grid place-items-center cursor-pointer"
+          >
+            <div>
+              <span class="block lg:inline-block text-center"><i class="las la-plus"></i></span>
+              <button class="m-auto">Add Book</button>
+            </div>
+          </div>
+          {% if books %}
+            {% for book in books %}
+              {% if book[0].user_id == current_user.user_id %}
+              <div class="bg-[#512B81] py-2 px-5 rounded-md my-auto w-auto lg:w-3/12">
+                <h2 class="text-2xl">{{ book[0].title }}</h2>
+                <a target="_blank" href="https://www.google.com/search?q={{ book[0].author }}" class="mt-2 block">Author: {{ book[0].author }}</a>
+                <span class="block">Rating: {{ book[0].rating }}</span>
+                <div class="text-right">
+                  <a href="{{ url_for('book_info', book_id=book[0].id) }}" class="inline-block mt-3 bg-[#4477CE] px-5 py-2 rounded-md">View Book <i class="las la-chevron-right"></i></a>
+                </div>
+              </div>
+              {% endif %} <!-- EndIf statement for if user has added any books -->
+            {% endfor %}
+        </div>
+            {% else %} <!-- Else statement for if user has added any books -->
+            <div class="mt-16 text-center">
+                <img src="{{ url_for('static', filename='img/none.png') }}" class="w-1/12 inline-block my-auto">
+                <span class="text-center text-2xl text-white my-auto">You have no books added yet. Click button to add.</span>
+            </div>
+          {% endif %} <!-- EndIf statement for if there are any books -->
+          {% else %} <!-- Else statement for user authentication -->
+            <div class="mt-16 text-center">
+              <span class="text-center text-2xl text-white my-auto">You're not signed in yet.</span>
+            </div>
+        {% endif %} <!-- EndIf statement for user authentication -->
+      </div>
+    </section>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </body>
+</html>

@@ -15,6 +15,7 @@ Jinja2==3.0.3
 jsmin==3.0.1
 lesscpy==0.15.1
 MarkupSafe==2.1.1
+pip==23.2.1
 ply==3.11
 python-dotenv==0.19.2
 python-stripe==0.0.6

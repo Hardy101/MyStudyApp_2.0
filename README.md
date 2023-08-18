@@ -6,7 +6,7 @@ MyLibrary is a web application that allows users to easily manage their personal
 ## Demo
 
 https://mystudy.onrender.com/
-
+[Demo]('static/img/demo.jpg')
 
 ## Features
 
